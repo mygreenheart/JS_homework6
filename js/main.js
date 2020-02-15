@@ -84,7 +84,7 @@ addPizzaToCollection(pizza1, pizza2, pizza3, pizza4, pizza5, pizza6, pizza7, piz
 addIngridientsToCollection(bekon, chease, ketchup, pineapple);
 pizza1.addComposition(pastry);
 pizza1.addComposition(bekon);
-pizza2.addComposition(chease);
+pizza1.addComposition(chease);
 pizza2.addComposition(ketchup);
 
 //Call all functions

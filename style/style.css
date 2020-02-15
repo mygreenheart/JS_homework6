@@ -7,26 +7,33 @@ body {
   font-family: "Roboto", sans-serif;
 }
 header {
-  height: 13vh;
+  width: 100%;
+  height: 20vh;
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 100%;
   background-color: rgb(0, 0, 0, 0.5);
   margin: auto auto;
 }
+
 header div {
   margin: auto auto;
-  width: 40vh;
 }
+
 header div p {
   color: red;
 }
+
 .sortDiv {
-  width: 50vh;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+.sortDiv input[type="button"] {
+  width: 20vh;
+  font-size: 1.8vh;
 }
 
 header input[type="text"] {
@@ -35,13 +42,14 @@ header input[type="text"] {
   display: inline-block;
   padding: 1vh 2vh;
   margin: 1vh 2vh;
-  border-radius: 10px;
+  border-radius: 1vh;
   font-weight: bold;
-  letter-spacing: 2px;
+  letter-spacing: 0.5vh;
   transition: 0.15s ease-in-out;
 }
 
 header input:not([type="text"]) {
+  width: 15vh;
   text-decoration: none;
   outline: none;
   display: inline-block;
@@ -139,22 +147,33 @@ li {
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
 }
 
 .modal-content {
   position: relative;
   margin: auto;
   padding: 0;
-  margin: 50% auto;
+  margin: 35vh auto;
   width: 50%;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 8px 0 rgb(150, 89, 190, 0.8),
+    0 6px 20px 0 rgb(255, 255, 255, 0.6);
   -webkit-animation-name: animatetop;
   -webkit-animation-duration: 0.4s;
   animation-name: animatetop;
   animation-duration: 0.4s;
 }
-
+.modal-content li {
+  margin: 2vh 0;
+  display: block;
+}
+.modal-content li a {
+  color: #ffff;
+  text-decoration: none;
+}
+.modal-content li a:hover {
+  font-size: 3vh;
+}
 @-webkit-keyframes animatetop {
   from {
     top: -300px;
@@ -190,5 +209,3 @@ li {
   text-decoration: none;
   cursor: pointer;
 }
-
-
