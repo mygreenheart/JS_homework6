@@ -1,10 +1,13 @@
 html {
   background: #222;
+ /* background-image: url(/img/background.jpg); */
+
 }
 body {
   margin: 0;
   padding: 0;
   font-family: "Roboto", sans-serif;
+
 }
 header {
   width: 100%;
@@ -26,6 +29,7 @@ header div p {
 }
 
 .sortDiv {
+  width: 30%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -48,7 +52,7 @@ header input[type="text"] {
   transition: 0.15s ease-in-out;
 }
 
-header input:not([type="text"]) {
+body input:not([type="text"]) {
   width: 15vh;
   text-decoration: none;
   outline: none;
@@ -70,10 +74,13 @@ header input:not([type="text"])::hover {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 750px;
+  width: 70%;
   margin: 2vh auto;
 }
-
+.grid input:not([type="text"]){
+  margin-left: 12vh;
+  width: 30vh;
+}
 .grid {
   margin: 3vh auto;
   width: 350px;
@@ -167,12 +174,24 @@ li {
   margin: 2vh 0;
   display: block;
 }
+
 .modal-content li a {
   color: #ffff;
   text-decoration: none;
 }
 .modal-content li a:hover {
   font-size: 3vh;
+}
+.modal-content select,option{
+  text-decoration: none;
+  outline: none;
+  display: inline-block;
+  padding: 1vh 2vh;
+  margin: 1vh 2vh;
+  border-radius: 1vh;
+  font-weight: bold;
+  letter-spacing: 0.5vh;
+  transition: 0.15s ease-in-out;
 }
 @-webkit-keyframes animatetop {
   from {
@@ -208,4 +227,9 @@ li {
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+@media(max-width:795px){
+  header{
+    height: 30vh;
+  }
 }

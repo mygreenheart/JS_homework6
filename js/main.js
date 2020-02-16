@@ -20,8 +20,6 @@ document.body.appendChild(header);
 document.body.appendChild(gridDiv);
 document.body.appendChild(listDiv);
 
-
-
 header.appendChild(showDivHeader);
 header.appendChild(searchDivHeader);
 header.appendChild(sortDivHeader);
@@ -36,7 +34,7 @@ sortDivHeader.appendChild(btnSortByPrice2);
 sortDivHeader.appendChild(btnSortByName1);
 sortDivHeader.appendChild(btnSortByName2);
 
-sortDivHeader.className = "sortDiv"
+sortDivHeader.className = "sortDiv";
 gridDiv.className = "gridDiv";
 listDiv.className = "listDiv";
 header.className = "header";
@@ -77,24 +75,75 @@ let pizza1 = new Pizza("./img/pizza1.jpg", "Peperoni"),
 let pastry = new Ingridient("pastry", 10, 2),
   bekon = new Ingridient("bekon", 50, 1.5),
   chease = new Ingridient("chease", 20, 1),
+  tomato = new Ingridient("tomato", 5, 0.3),
   ketchup = new Ingridient("ketchup", 10, 0.5),
-  pineapple = new Ingridient("pineapple", 15, 2.5);
+  pineapple = new Ingridient("pineapple", 15, 2.5),
+  olives = new Ingridient("olives", 15, 1),
+  mozzarella = new Ingridient("mozzarella", 15, 3),
+  sausages = new Ingridient("sausages", 100, 3.5),
+  garlic = new Ingridient("garlic", 2, 0.3),
+  otzhika = new Ingridient("otzhika", 10, 0.5),
+  pelmeni = new Ingridient("pelmeni", 100, 10000);
 
-addPizzaToCollection(pizza1, pizza2, pizza3, pizza4, pizza5, pizza6, pizza7, pizza8, pizza9, pizza10, pizza11, pizza12, pizza13, pizza14, pizza15, pizza16);
-addIngridientsToCollection(bekon, chease, ketchup, pineapple);
+addPizzaToCollection(
+  pizza1,
+  pizza2,
+  pizza3,
+  pizza4,
+  pizza5,
+  pizza6,
+  pizza7,
+  pizza8,
+  pizza9,
+  pizza10,
+  pizza11,
+  pizza12,
+  pizza13,
+  pizza14,
+  pizza15,
+  pizza16
+);
+addIngridientsToCollection(
+  bekon,
+  chease,
+  ketchup,
+  tomato,
+  pineapple,
+  olives,
+  mozzarella,
+  sausages,
+  garlic,
+  otzhika,
+  pelmeni
+);
 pizza1.addComposition(pastry);
 pizza1.addComposition(bekon);
 pizza1.addComposition(chease);
+pizza2.addComposition(pastry);
 pizza2.addComposition(ketchup);
+pizza3.addComposition(pastry);
+pizza4.addComposition(pastry);
+pizza5.addComposition(pastry);
+pizza6.addComposition(pastry);
+pizza7.addComposition(pastry);
+pizza8.addComposition(pastry);
+pizza9.addComposition(pastry);
+pizza10.addComposition(pastry);
+pizza11.addComposition(pastry);
+pizza12.addComposition(pastry);
+pizza13.addComposition(pastry);
+pizza14.addComposition(pastry);
+pizza15.addComposition(pastry);
+pizza16.addComposition(pastry);
 
 //Call all functions
 
 btnGrid.addEventListener("click", () => {
-  drawGridPizza(pizzaCollections)
+  drawGridPizza(pizzaCollections);
 });
 
 btnList.addEventListener("click", () => {
-  drawListPizza(pizzaCollections)
+  drawListPizza(pizzaCollections);
 });
 
 btnFillter.addEventListener("click", filterByIngredient);
@@ -102,5 +151,3 @@ btnSortByName1.addEventListener("click", sortByName1);
 btnSortByName2.addEventListener("click", sortByName2);
 btnSortByPrice1.addEventListener("click", sortByPriceUp);
 btnSortByPrice2.addEventListener("click", sortByPriceDown);
-
-

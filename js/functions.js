@@ -139,23 +139,22 @@ function sortByPriceUp() {
   gridDiv.innerHTML = "";
   listDiv.innerHTML = "";
   sorted = pizzaCollections.slice().sort((a, b) => {
-    return b.price - a.price;
+    return a.price > b.price ? -1 : 1;
   });
   drawListPizza(sorted);
 }
 
 function sortByPriceDown() {
-  let sortedt = [];
+  let sorted = [];
   gridDiv.innerHTML = "";
   listDiv.innerHTML = "";
-  sortedt = pizzaCollections.slice().sort((a, b) => {
-    return a.price - b.price;
+  sorted = pizzaCollections.slice().sort((a, b) => {
+    return a.price > b.price ? 1 : -1;
   });
-  drawListPizza(sortedt);
+  drawListPizza(sorted);
 }
 
 //Create modal window
-
 function createModalWindow() {
   let modal = document.createElement("div"),
     modalContent = document.createElement("div"),
@@ -165,7 +164,8 @@ function createModalWindow() {
     select = document.createElement("select"),
     addDiv = document.createElement("div"),
     btnAdd = document.createElement("input"),
-    target = event.currentTarget;
+    target = event.currentTarget,
+    error = document.createElement("p");
 
   modal.className = "modal";
   span.className = "close";
@@ -186,11 +186,11 @@ function createModalWindow() {
   modalContent.appendChild(addDiv);
   addDiv.appendChild(btnAdd);
   addDiv.appendChild(select);
-
+console.log(event.target);
   for (let i = 0; i < pizzaCollections.length; i++) {
     let btnClick = document.getElementById(i);
     if (target.id == btnClick.id) {
-      for (const e of pizzaCollections[i].composition) {
+      for (let e of pizzaCollections[i].composition) {
         let li = document.createElement("li"),
           a = document.createElement("a");
 
@@ -199,45 +199,58 @@ function createModalWindow() {
         a.href = "#";
         li.appendChild(a);
         ul.appendChild(li);
-
         a.onclick = function() {
-          if (event.target.textContent == e[0]) {
+          if (event.target.textContent == a.textContent) {
+            if (a.textContent == "pastry") {
+              error.textContent = "Cannot delete pastry";
+              modalContent.appendChild(error);
+              error.style.color = "red";
+              error.style.fontSize = "3vh";
+              throw error;
+            }
             if (a.style.textDecoration == "") {
+              error.innerHTML = "";
               a.style.textDecoration = "line-through";
               pizzaCollections[i].deleteIngridient(e);
             } else {
               a.style.textDecoration = "";
-              pizzaCollections[i].addDeletedIngridient();
+              pizzaCollections[i].addDeletedIngridient(e);
             }
           }
         };
         btnAdd.onclick = function() {
-          for (const ingridient of ingridientsCollection) {
-            for (let i = 0; i < select.childNodes.length; i++) {
-              if (
-                select.childNodes[i].selected &&
-                select.childNodes[i].value == ingridient.iName
-              ) {
-                  console.log(  pizzaCollections[i]);
+          for (let ingridient of ingridientsCollection) {
+            for (let option of select.childNodes) {
+              if (option.selected && option.value == ingridient.iName) {
                 pizzaCollections[i].addComposition(ingridient);
+                ul.textContent = "";
+                for (let e of pizzaCollections[i].composition) {
+                  let li = document.createElement("li"),
+                    a = document.createElement("a");
+                  pTitle.innerText = pizzaCollections[i].name;
+                  a.innerText = e[0];
+                  a.href = "#";
+                  li.appendChild(a);
+                  ul.appendChild(li);
+                }
               }
             }
           }
         };
       }
     }
-  }
 
-  window.onclick = function(event) {
-    if (event.target == modal) {
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+        drawGridPizza(pizzaCollections);
+      }
+    };
+    span.onclick = function() {
       modal.style.display = "none";
       drawGridPizza(pizzaCollections);
-    }
-  };
-  span.onclick = function() {
-    modal.style.display = "none";
-    drawGridPizza(pizzaCollections);
-  };
+    };
+  }
 }
 
 function fillSelectIngridient(select) {

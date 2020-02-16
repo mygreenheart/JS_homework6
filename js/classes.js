@@ -1,5 +1,5 @@
 "use strict";
-var deletedElem;
+var deletedElem = [];
 class Pizza {
   constructor(photo, name) {
     this.photo = photo;
@@ -37,13 +37,17 @@ class Pizza {
     }
     return composition;
   }
-
+ 
   deleteIngridient(name) {
-    deletedElem = name;
+    deletedElem.push(name);
     this.composition.delete(name[0]);
   }
-  addDeletedIngridient() {
-    this.composition.set(deletedElem[0], deletedElem[1]);
+  addDeletedIngridient(name) {
+    for (let i = 0; i < deletedElem.length; i++) {
+      if ((name = deletedElem[i])) {
+        this.composition.set(deletedElem[i][0], deletedElem[i][1]);
+      }
+    }
   }
 }
 
