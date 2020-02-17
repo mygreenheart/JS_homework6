@@ -13,16 +13,23 @@ function addIngridientsToCollection(...ingridient) {
 
 function createDiv(img, name, composition, calories, price, count) {
   let secondDiv = document.createElement("div"),
+    nameDiv = document.createElement("div"),
+    infoDiv = document.createElement("div"),
+    imgDiv = document.createElement("div"),
     pImg = document.createElement("img"),
-    pName = document.createElement("p"),
+    pName = document.createElement("a"),
     pComposition = document.createElement("p"),
     pCalories = document.createElement("p"),
     pPrice = document.createElement("p"),
     btnChangeIngridient = document.createElement("input");
 
   secondDiv.className = "grid ";
+  nameDiv.className = "nameDiv";
+  imgDiv.className = "imgDiv card";
+  infoDiv.className = "infoDiv card";
+  pName.href = "#";
   pImg.src = img;
-  pName.innerText = "Name: " + name;
+  pName.innerText = name;
   pComposition.innerText = "Composition: " + composition;
   pCalories.innerText = "Calories: " + calories + " cal";
   pPrice.innerText = "Price: " + price + " $";
@@ -32,14 +39,35 @@ function createDiv(img, name, composition, calories, price, count) {
   btnChangeIngridient.value = "Change Ingridient";
 
   gridDiv.appendChild(secondDiv);
-  secondDiv.appendChild(pImg);
-  secondDiv.appendChild(pName);
-  secondDiv.appendChild(pComposition);
-  secondDiv.appendChild(pCalories);
-  secondDiv.appendChild(pPrice);
-  secondDiv.appendChild(btnChangeIngridient);
+  secondDiv.appendChild(imgDiv);
+  secondDiv.appendChild(infoDiv);
+  imgDiv.appendChild(pImg);
+  nameDiv.appendChild(pName);
+  infoDiv.appendChild(nameDiv);
+  infoDiv.appendChild(pComposition);
+  infoDiv.appendChild(pCalories);
+  infoDiv.appendChild(pPrice);
+  infoDiv.appendChild(btnChangeIngridient);
+
+  pName.addEventListener("click", () => {
+    if (event.target == pName) {
+      imgDiv.style.display = "block";
+    }
+  })
+
+  pImg.addEventListener("click", () => {
+    if (event.target == pImg) {
+      imgDiv.style.opacity = "0";
+      imgDiv.style.display = "none";
+    }
+  })
+
+
 
   btnChangeIngridient.addEventListener("click", createModalWindow);
+}
+function showImg(img){
+  
 }
 
 function createList(img, name, price) {
@@ -80,7 +108,7 @@ function drawListPizza(arr) {
   for (var i = 0; i < arr.length; i++) {
     let name = arr[i].name,
       img = arr[i].photo,
-      price = arr[i].countCalories();
+      price = arr[i].countPrice();
     createList(img, name, price);
   }
 }
@@ -138,8 +166,9 @@ function sortByPriceUp() {
   let sorted = [];
   gridDiv.innerHTML = "";
   listDiv.innerHTML = "";
+
   sorted = pizzaCollections.slice().sort((a, b) => {
-    return a.price > b.price ? -1 : 1;
+    return a.countPrice() > b.countPrice() ? -1 : 1;
   });
   drawListPizza(sorted);
 }
@@ -149,7 +178,7 @@ function sortByPriceDown() {
   gridDiv.innerHTML = "";
   listDiv.innerHTML = "";
   sorted = pizzaCollections.slice().sort((a, b) => {
-    return a.price > b.price ? 1 : -1;
+    return a.countPrice() > b.countPrice() ? 1 : -1;
   });
   drawListPizza(sorted);
 }
@@ -186,7 +215,7 @@ function createModalWindow() {
   modalContent.appendChild(addDiv);
   addDiv.appendChild(btnAdd);
   addDiv.appendChild(select);
-console.log(event.target);
+
   for (let i = 0; i < pizzaCollections.length; i++) {
     let btnClick = document.getElementById(i);
     if (target.id == btnClick.id) {
@@ -199,7 +228,7 @@ console.log(event.target);
         a.href = "#";
         li.appendChild(a);
         ul.appendChild(li);
-        a.onclick = function() {
+        a.onclick = function () {
           if (event.target.textContent == a.textContent) {
             if (a.textContent == "pastry") {
               error.textContent = "Cannot delete pastry";
@@ -218,7 +247,7 @@ console.log(event.target);
             }
           }
         };
-        btnAdd.onclick = function() {
+        btnAdd.onclick = function () {
           for (let ingridient of ingridientsCollection) {
             for (let option of select.childNodes) {
               if (option.selected && option.value == ingridient.iName) {
@@ -240,13 +269,13 @@ console.log(event.target);
       }
     }
 
-    window.onclick = function(event) {
+    window.onclick = function (event) {
       if (event.target == modal) {
         modal.style.display = "none";
         drawGridPizza(pizzaCollections);
       }
     };
-    span.onclick = function() {
+    span.onclick = function () {
       modal.style.display = "none";
       drawGridPizza(pizzaCollections);
     };

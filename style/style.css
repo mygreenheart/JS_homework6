@@ -1,18 +1,15 @@
 html {
   background: #222;
- /* background-image: url(/img/background.jpg); */
-
+  /* background-image: url(/img/background.jpg); */
 }
 body {
   margin: 0;
   padding: 0;
   font-family: "Roboto", sans-serif;
-
 }
 header {
   width: 100%;
   height: 20vh;
-
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -36,8 +33,9 @@ header div p {
 }
 
 .sortDiv input[type="button"] {
-  width: 20vh;
-  font-size: 1.8vh;
+  height: 4vh;
+  width: 15vh;
+  font-size: 1/2vh;
 }
 
 header input[type="text"] {
@@ -77,29 +75,41 @@ header input:not([type="text"])::hover {
   width: 70%;
   margin: 2vh auto;
 }
-.grid input:not([type="text"]){
-  margin-left: 12vh;
-  width: 30vh;
+.grid input:not([type="text"]) {
+  width: 20vh;
+}
+.infoDiv p {
+  text-align: left;
 }
 .grid {
   margin: 3vh auto;
-  width: 350px;
+  width: 50vh;
   border: 5px solid;
   border-image-source: linear-gradient(
     to right,
     rgb(150, 89, 190) 85%,
-    rgb(255, 255, 255)
+    rgb(157, 150, 221)
   );
   border-image-slice: 1;
 }
-
-.grid p {
-  text-align: left;
+.nameDiv {
+  height: 10vh;
+}
+.nameDiv a {
+  color: #ffff;
+  margin: 5vh 15vh;
+  font-size: 4vh;
+  text-decoration: none;
+}
+.imgDiv {
+  position: absolute;
+  display: none;
+  opacity: 1;
 }
 
-div img {
-  height: 250px;
-  width: 350px;
+.imgDiv img {
+  height: 28.9vh;
+  width: 50vh;
 }
 
 div p {
@@ -110,7 +120,7 @@ div p {
 .listDiv {
   display: flex;
   flex-direction: column;
-  width: 750px;
+  width: 100vh;
   margin: auto;
 }
 
@@ -118,20 +128,20 @@ div p {
   display: flex;
   flex-direction: row;
   margin: 1vh auto;
-  height: 100px;
-  width: 300px;
+  height: 10vh;
+  width: 70vh;
   border: 3px solid;
   border-image-source: linear-gradient(
     to right,
     rgb(150, 89, 190) 85%,
-    rgb(255, 255, 255)
+    rgb(157, 150, 221)
   );
   border-image-slice: 1;
 }
 
 .list img {
-  width: 120px;
-  height: 100px;
+  width: 12vh;
+  height: 10vh;
 }
 
 ul {
@@ -182,7 +192,8 @@ li {
 .modal-content li a:hover {
   font-size: 3vh;
 }
-.modal-content select,option{
+.modal-content select,
+option {
   text-decoration: none;
   outline: none;
   display: inline-block;
@@ -228,8 +239,13 @@ li {
   text-decoration: none;
   cursor: pointer;
 }
-@media(max-width:795px){
-  header{
+@media (max-width: 795px) {
+  header {
+    height: 30vh;
+  }
+}
+@media (max-width: 1220px) {
+  header {
     height: 30vh;
   }
 }
