@@ -103,13 +103,15 @@ header input:not([type="text"])::hover {
 }
 .imgDiv {
   position: absolute;
-  display: none;
-  opacity: 1;
+  opacity: 0;
+  transition: 1.5s;
 }
 
 .imgDiv img {
-  height: 28.9vh;
-  width: 50vh;
+  /* height: 28.9vh;
+  width: 50vh; */
+  height: 4.8vh;
+  width: 8.3vh;
 }
 
 div p {

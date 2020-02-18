@@ -14,11 +14,13 @@ let gridDiv = document.createElement("div"),
   btnSortByPrice1 = document.createElement("input"),
   btnSortByPrice2 = document.createElement("input"),
   textFillter = document.createElement("input"),
+  btnAddPizza = document.createElement("input"),
   header = document.createElement("header");
 
 document.body.appendChild(header);
 document.body.appendChild(gridDiv);
 document.body.appendChild(listDiv);
+
 
 header.appendChild(showDivHeader);
 header.appendChild(searchDivHeader);
@@ -29,6 +31,7 @@ showDivHeader.appendChild(btnList);
 searchDivHeader.appendChild(btnFillter);
 searchDivHeader.appendChild(textFillter);
 searchDivHeader.appendChild(pFillter);
+searchDivHeader.appendChild(btnAddPizza);
 sortDivHeader.appendChild(btnSortByPrice1);
 sortDivHeader.appendChild(btnSortByPrice2);
 sortDivHeader.appendChild(btnSortByName1);
@@ -40,6 +43,8 @@ listDiv.className = "listDiv";
 header.className = "header";
 btnGrid.type = "button";
 btnGrid.value = "Show grid";
+btnAddPizza.type = "button";
+btnAddPizza.value = "Add Pizza";
 btnList.type = "button";
 btnList.value = "Show list";
 btnFillter.type = "button";
@@ -145,7 +150,7 @@ btnGrid.addEventListener("click", () => {
 btnList.addEventListener("click", () => {
   drawListPizza(pizzaCollections);
 });
-
+btnAddPizza.addEventListener("click",addNewPizza)
 btnFillter.addEventListener("click", filterByIngredient);
 btnSortByName1.addEventListener("click", sortByName1);
 btnSortByName2.addEventListener("click", sortByName2);

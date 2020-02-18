@@ -13,7 +13,9 @@ class Pizza {
       ingridients.iPrice
     ]);
   }
-
+  setName(name){
+    this.name = name;
+  }
   countPrice() {
     let price = 0;
     for (const entry of this.composition.values()) {

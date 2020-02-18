@@ -51,14 +51,20 @@ function createDiv(img, name, composition, calories, price, count) {
 
   pName.addEventListener("click", () => {
     if (event.target == pName) {
-      imgDiv.style.display = "block";
+      pImg.style.height = "28.9vh";
+      pImg.style.width = "50vh";
+      imgDiv.style.opacity = "1";
     }
   })
 
   pImg.addEventListener("click", () => {
     if (event.target == pImg) {
       imgDiv.style.opacity = "0";
-      imgDiv.style.display = "none";
+      setTimeout(()=>{
+        pImg.style.height = "4vh";
+        pImg.style.width = "8vh";
+      },1500)
+
     }
   })
 
@@ -66,9 +72,7 @@ function createDiv(img, name, composition, calories, price, count) {
 
   btnChangeIngridient.addEventListener("click", createModalWindow);
 }
-function showImg(img){
-  
-}
+
 
 function createList(img, name, price) {
   let secondDiv = document.createElement("div"),
@@ -289,4 +293,95 @@ function fillSelectIngridient(select) {
     option.innerText = ingridientsCollection[i].iName;
     select.appendChild(option);
   }
+}
+
+function addNewPizza() {
+
+  let modal = document.createElement("div"),
+    modalContent = document.createElement("div"),
+    nameDiv = document.createElement("div"),
+    compositionDiv = document.createElement("div"),
+    span = document.createElement("span"),
+    ul = document.createElement("ul"),
+    nameText = document.createElement("input"),
+    nameLabel = document.createElement("label"),
+    pTitle = document.createElement("p"),
+    select = document.createElement("select"),
+    btnAddComposition = document.createElement("input"),
+    btnAddPizza = document.createElement("input"),
+    target = event.currentTarget,
+    error = document.createElement("p");
+
+  fillSelectIngridient(select);
+  modal.className = "modal";
+  span.className = "close";
+  span.textContent = "X";
+  modalContent.className = "modal-content";
+  modal.style.display = "block";
+  btnAddComposition.type = "button";
+  btnAddComposition.value = "Add Conposition";
+  btnAddPizza.type = "button";
+  btnAddPizza.value = "Add Pizza";
+  nameText.type = "text";
+  nameLabel.innerText = "Name";
+  nameDiv.className = "nameDiv";
+  compositionDiv.className = "compositionDiv";
+  pTitle.innerText = "Create New Pizza"
+
+  document.body.appendChild(modal);
+  modal.appendChild(modalContent);
+  modalContent.appendChild(span);
+  modalContent.appendChild(pTitle);
+  modalContent.appendChild(nameDiv);
+  nameDiv.appendChild(nameText);
+  nameDiv.appendChild(nameLabel);
+  modalContent.appendChild(compositionDiv);
+  compositionDiv.appendChild(select);
+  compositionDiv.appendChild(ul);
+  compositionDiv.appendChild(btnAddComposition);
+  modalContent.appendChild(btnAddPizza);
+  modalContent.appendChild(error);
+
+  let newPizza = new Pizza("./img/pizza16.jpg", "");
+  btnAddPizza.onclick = function () {
+    if (!(nameText.value == "")) {
+      newPizza.setName(nameText.value);
+      newPizza.addComposition(pastry);
+      addPizzaToCollection(newPizza);
+      modal.style.display = "none";
+      drawGridPizza(pizzaCollections);
+    } else {
+      error.textContent = "You must put name";
+      throw error;
+    }
+
+  };
+
+  btnAddComposition.onclick = function () {
+    for (let ingridient of ingridientsCollection) {
+      for (let option of select.childNodes) {
+        if (option.selected && option.value == ingridient.iName) {
+          ul.textContent = "";
+          let li = document.createElement("li"),
+            a = document.createElement("a");
+          newPizza.addComposition(ingridient)
+          a.innerText = newPizza.showComposition();
+          a.href = "#";
+          li.appendChild(a);
+          ul.appendChild(li);
+        }
+      }
+    }
+  };
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+      drawGridPizza(pizzaCollections);
+    }
+  };
+  span.onclick = function () {
+    modal.style.display = "none";
+    drawGridPizza(pizzaCollections);
+  };
+
 }
