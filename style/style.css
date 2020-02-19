@@ -259,7 +259,7 @@ option {
 .cartDiv {
   width: 6vh;
   height: 6vh;
-  background-image: url(/img/Untitled-1.png);
+  background-image: url("../img/shopping.png");
 
   background-size: 5.8vh 5.8vh;
   background-repeat: no-repeat;
