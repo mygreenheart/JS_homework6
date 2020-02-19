@@ -142,9 +142,11 @@ div p {
 .list {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   margin: 1vh auto;
   height: 10vh;
-  width: 70vh;
+  width: 50vh;
   border: 3px solid;
   border-image-source: linear-gradient(
     to right,

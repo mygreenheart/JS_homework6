@@ -119,10 +119,10 @@ function createDiv(img, name, composition, calories, price, count) {
       imgCart.src = cart[i].photo;
       pNameCart.innerText = cart[i].name;
       pPriceCart.innerText = cart[i].countPrice() + "$";
-      count++;
+
       deletePizzaCart.onclick = function () {
         if (cart[i] == pizza) {
-          cart.splice(i, 1);
+          cart.splice(i, 1)
           imgCart.remove();
           pNameCart.remove();
           pPriceCart.remove();
@@ -161,23 +161,75 @@ function createDiv(img, name, composition, calories, price, count) {
   btnChangeIngridient.addEventListener("click", createModalWindow);
 }
 
-function createList(img, name, price) {
+function createList(img, name, price, id) {
   let secondDiv = document.createElement("div"),
     ulLogo = document.createElement("img"),
     ulList = document.createElement("ul"),
     liName = document.createElement("li"),
-    liPrice = document.createElement("li");
+    liPrice = document.createElement("li"),
+    btnAddToCart = document.createElement("input");
 
   secondDiv.className = "list";
   ulLogo.src = img;
   liName.innerText = name;
   liPrice.innerText = price + " $";
+  btnAddToCart.value = "Add to cart";
+  btnAddToCart.type = "button";
+  btnAddToCart.id = id;
+
 
   listDiv.appendChild(secondDiv);
   secondDiv.appendChild(ulLogo);
   secondDiv.appendChild(ulList);
   ulList.appendChild(liName);
   ulList.appendChild(liPrice);
+  secondDiv.appendChild(btnAddToCart);
+
+  btnAddToCart.addEventListener("click", function () {
+    let pizza = pizzaCollections[btnAddToCart.id];
+    cart.push(pizza);
+    let imgCart = document.createElement("img"),
+      divCarts = document.createElement("div"),
+      divCartTotal = document.createElement("div"),
+      pNameCart = document.createElement("p"),
+      pPriceCart = document.createElement("p"),
+      deletePizzaCart = document.createElement("a"),
+      aCartBuy = document.createElement("a");
+
+    divCarts.className = "carts";
+    aCartBuy.href = "#";
+    aCartBuy.className = "buttonBuy";
+    deletePizzaCart.href = "#";
+    deletePizzaCart.innerText = "X";
+
+    cartDivInside.appendChild(divCarts);
+    divCarts.appendChild(imgCart);
+    divCarts.appendChild(pNameCart);
+    divCarts.appendChild(pPriceCart);
+    divCarts.appendChild(deletePizzaCart);
+    cartDivInside.appendChild(divCartTotal);
+
+    for (let i = 0; i < cart.length; i++) {
+      imgCart.src = cart[i].photo;
+      pNameCart.innerText = cart[i].name;
+      pPriceCart.innerText = cart[i].countPrice() + "$";
+      deletePizzaCart.onclick = function () {
+        if (cart[i] == pizza) {
+          cart.splice(i, 1)
+          imgCart.remove();
+          pNameCart.remove();
+          pPriceCart.remove();
+          deletePizzaCart.remove();
+          cartBtnTotal.innerText = "Total price: " + countTotalPrice() + " $";
+          cartA.innerText = "(" + cart.length + ")";
+        }
+
+      }
+    }
+
+    cartBtnTotal.innerText = "Total price: " + countTotalPrice() + " $";
+    cartA.innerText = "(" + cart.length + ")";
+  })
 }
 
 function drawGridPizza(arr) {
@@ -200,7 +252,7 @@ function drawListPizza(arr) {
     let name = arr[i].name,
       img = arr[i].photo,
       price = arr[i].countPrice();
-    createList(img, name, price);
+    createList(img, name, price,i);
   }
 }
 
