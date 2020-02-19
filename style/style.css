@@ -9,16 +9,28 @@ body {
 }
 header {
   width: 100%;
-  height: 20vh;
+  height: 15vh;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   background-color: rgb(0, 0, 0, 0.5);
   margin: auto auto;
 }
-
+.divSort {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 0;
+  top: 30vh;
+  width: auto;
+  height: auto;
+}
 header div {
   margin: auto auto;
+}
+.searchDivHeader {
+  margin-top: 4.4vh;
 }
 
 header div p {
@@ -35,7 +47,7 @@ header div p {
 .sortDiv input[type="button"] {
   height: 4vh;
   width: 15vh;
-  font-size: 1/2vh;
+  font-size: 1.2vh;
 }
 
 header input[type="text"] {
@@ -43,7 +55,7 @@ header input[type="text"] {
   outline: none;
   display: inline-block;
   padding: 1vh 2vh;
-  margin: 1vh 2vh;
+  margin: 1vh 1vh;
   border-radius: 1vh;
   font-weight: bold;
   letter-spacing: 0.5vh;
@@ -79,6 +91,7 @@ header input:not([type="text"])::hover {
   width: 20vh;
 }
 .infoDiv p {
+  padding-left: 3vh;
   text-align: left;
 }
 .grid {
@@ -241,6 +254,101 @@ option {
   text-decoration: none;
   cursor: pointer;
 }
+.cartDiv {
+  width: 6vh;
+  height: 6vh;
+  background-image: url(/img/Untitled-1.png);
+
+  background-size: 5.8vh 5.8vh;
+  background-repeat: no-repeat;
+}
+.cartDiv:hover {
+  background-color: rgba(116, 109, 109, 0.6);
+}
+.cartA {
+  position: relative;
+  text-decoration: none;
+  font-size: 3.7vh;
+  color: #fff;
+  top: 1vh;
+  left: 7vh;
+}
+.cartDivInside {
+  margin-top: 3vh;
+  border-radius: 5vh;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 50vh;
+  display: none;
+  position: absolute;
+  right: 8vh;
+  background-color: rgb(150, 89, 190, 0.6);
+}
+
+.carts {
+  color: #fff;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  margin: 2vh 0;
+}
+.carts p,
+a {
+  text-decoration: none;
+  font-size: 2vh;
+  font-weight: bold;
+  color: #fff;
+}
+.cartDivInside img {
+  width: 12vh;
+  height: 10vh;
+}
+.cartTotal {
+  text-align: center;
+}
+a.cartButton {
+  top: 1vh;
+  position: relative;
+  z-index: 1;
+  font-size: 135%;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 0.25em 0.5em;
+}
+a.cartButton:after {
+  content: "Купить"; /* здесь 6 букв */
+  position: absolute;
+  z-index: -1;
+  top: -2px;
+  bottom: -2px;
+  left: -2px;
+  width: calc(
+    100% + 6 * (1em * 90 / 135) - 2px * 2 * 2
+  ); /* где 6*(1em*90/135), где 6 - это 6 букв, 90 - это font-size after, а 135 - это font-size родителя */
+  text-align: right;
+  color: #fff;
+  font-size: 90%;
+  padding: 0.25em 0.5em;
+  border-radius: 5px;
+  border: 2px solid #c61e40;
+  -webkit-transform: skewX(-10deg);
+  transform: skewX(-10deg);
+  background: linear-gradient(rgb(150, 89, 190) 90%, rgb(201, 14, 14)) no-repeat
+    100% 0;
+  background-size: calc(6 * (1em * 90 / 135) + 0.5em) 100%;
+  box-shadow: inset calc(-6 * (1em * 90 / 135) - 0.5em) 0 rgba(255, 255, 255, 0);
+  transition: 0.3s;
+}
+a.cartButton:hover:after {
+  box-shadow: inset calc(-6 * (1em * 90 / 135) - 0.5em) 0
+    rgba(255, 255, 255, 0.2);
+}
+a.cartButton:active:after {
+  background-image: linear-gradient(#c61e40, #d4536d);
+}
+
 @media (max-width: 795px) {
   header {
     height: 30vh;

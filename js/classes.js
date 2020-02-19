@@ -13,9 +13,11 @@ class Pizza {
       ingridients.iPrice
     ]);
   }
+
   setName(name){
     this.name = name;
   }
+
   countPrice() {
     let price = 0;
     for (const entry of this.composition.values()) {
@@ -39,11 +41,16 @@ class Pizza {
     }
     return composition;
   }
- 
+
+  deletePizza(){
+    delete this
+  }
+
   deleteIngridient(name) {
     deletedElem.push(name);
     this.composition.delete(name[0]);
   }
+
   addDeletedIngridient(name) {
     for (let i = 0; i < deletedElem.length; i++) {
       if ((name = deletedElem[i])) {

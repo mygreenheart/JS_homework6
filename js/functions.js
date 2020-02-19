@@ -1,10 +1,46 @@
 "use strict";
 
 let pizzaCollections = [],
-  ingridientsCollection = [];
+  ingridientsCollection = [],
+  cart = [];
 
 function addPizzaToCollection(...pizza) {
   pizzaCollections.push(...pizza);
+}
+
+function addPizzaFromLocalStorage() {
+  for (const key in localStorage) {
+    if (localStorage.hasOwnProperty(key)) {
+      let stringPizza = localStorage.getItem(key).split(",");
+      let newPizza = new Pizza("./img/pizza16.jpg", key);
+      for (const keyPizza of stringPizza) {
+        for (let ingridient of ingridientsCollection) {
+          if (keyPizza == ingridient.iName) {
+            newPizza.addComposition(pastry);
+            newPizza.addComposition(ingridient);
+            pizzaCollections.unshift(newPizza)
+          }
+        }
+      }
+    }
+
+  }
+
+}
+
+function addNewPizzaToCollection(pizza, name) {
+  localStorage.setItem(name, [pizza.showComposition(), pizza.countCalories(), pizza.countPrice()]);
+  let stringPizza = localStorage.getItem(name).split(",");
+  let newPizza = new Pizza("#", name);
+  newPizza.addComposition(pastry);
+  for (const keyPizza of stringPizza) {
+    for (let ingridient of ingridientsCollection) {
+      if (keyPizza == ingridient.iName) {
+        newPizza.addComposition(ingridient);
+      }
+    }
+  }
+  pizzaCollections.unshift(newPizza);
 }
 
 function addIngridientsToCollection(...ingridient) {
@@ -21,7 +57,8 @@ function createDiv(img, name, composition, calories, price, count) {
     pComposition = document.createElement("p"),
     pCalories = document.createElement("p"),
     pPrice = document.createElement("p"),
-    btnChangeIngridient = document.createElement("input");
+    btnChangeIngridient = document.createElement("input"),
+    btnAddToCart = document.createElement("input");
 
   secondDiv.className = "grid ";
   nameDiv.className = "nameDiv";
@@ -34,9 +71,13 @@ function createDiv(img, name, composition, calories, price, count) {
   pCalories.innerText = "Calories: " + calories + " cal";
   pPrice.innerText = "Price: " + price + " $";
   btnChangeIngridient.id = count;
+  btnAddToCart.id = count;
 
   btnChangeIngridient.type = "button";
   btnChangeIngridient.value = "Change Ingridient";
+  btnAddToCart.className = "btnAddToCart";
+  btnAddToCart.type = "button";
+  btnAddToCart.value = "Add to cart";
 
   gridDiv.appendChild(secondDiv);
   secondDiv.appendChild(imgDiv);
@@ -48,6 +89,55 @@ function createDiv(img, name, composition, calories, price, count) {
   infoDiv.appendChild(pCalories);
   infoDiv.appendChild(pPrice);
   infoDiv.appendChild(btnChangeIngridient);
+  infoDiv.appendChild(btnAddToCart);
+
+  btnAddToCart.addEventListener("click", function () {
+    let pizza = pizzaCollections[btnAddToCart.id];
+    cart.push(pizza);
+    let imgCart = document.createElement("img"),
+      divCarts = document.createElement("div"),
+      divCartTotal = document.createElement("div"),
+      pNameCart = document.createElement("p"),
+      pPriceCart = document.createElement("p"),
+      deletePizzaCart = document.createElement("a"),
+      aCartBuy = document.createElement("a");
+
+    divCarts.className = "carts";
+    aCartBuy.href = "#";
+    aCartBuy.className = "buttonBuy";
+    deletePizzaCart.href = "#";
+    deletePizzaCart.innerText = "X";
+
+    cartDivInside.appendChild(divCarts);
+    divCarts.appendChild(imgCart);
+    divCarts.appendChild(pNameCart);
+    divCarts.appendChild(pPriceCart);
+    divCarts.appendChild(deletePizzaCart);
+    cartDivInside.appendChild(divCartTotal);
+
+    for (let i = 0; i < cart.length; i++) {
+      imgCart.src = cart[i].photo;
+      pNameCart.innerText = cart[i].name;
+      pPriceCart.innerText = cart[i].countPrice() + "$";
+      count++;
+      deletePizzaCart.onclick = function () {
+        if (cart[i] == pizza) {
+          cart.splice(i, 1);
+          imgCart.remove();
+          pNameCart.remove();
+          pPriceCart.remove();
+          deletePizzaCart.remove();
+          cartBtnTotal.innerText = "Total price: " + countTotalPrice() + " $";
+          cartA.innerText = "(" + cart.length + ")";
+        }
+
+      }
+    }
+
+    cartBtnTotal.innerText = "Total price: " + countTotalPrice() + " $";
+    cartA.innerText = "(" + cart.length + ")";
+  })
+
 
   pName.addEventListener("click", () => {
     if (event.target == pName) {
@@ -60,19 +150,16 @@ function createDiv(img, name, composition, calories, price, count) {
   pImg.addEventListener("click", () => {
     if (event.target == pImg) {
       imgDiv.style.opacity = "0";
-      setTimeout(()=>{
+      setTimeout(() => {
         pImg.style.height = "4vh";
         pImg.style.width = "8vh";
-      },1500)
+      }, 1500)
 
     }
   })
 
-
-
   btnChangeIngridient.addEventListener("click", createModalWindow);
 }
-
 
 function createList(img, name, price) {
   let secondDiv = document.createElement("div"),
@@ -186,7 +273,6 @@ function sortByPriceDown() {
   });
   drawListPizza(sorted);
 }
-
 //Create modal window
 function createModalWindow() {
   let modal = document.createElement("div"),
@@ -294,9 +380,8 @@ function fillSelectIngridient(select) {
     select.appendChild(option);
   }
 }
-
+//Add new pizza
 function addNewPizza() {
-
   let modal = document.createElement("div"),
     modalContent = document.createElement("div"),
     nameDiv = document.createElement("div"),
@@ -345,9 +430,8 @@ function addNewPizza() {
   let newPizza = new Pizza("./img/pizza16.jpg", "");
   btnAddPizza.onclick = function () {
     if (!(nameText.value == "")) {
-      newPizza.setName(nameText.value);
       newPizza.addComposition(pastry);
-      addPizzaToCollection(newPizza);
+      addNewPizzaToCollection(newPizza, nameText.value);
       modal.style.display = "none";
       drawGridPizza(pizzaCollections);
     } else {
@@ -384,4 +468,12 @@ function addNewPizza() {
     drawGridPizza(pizzaCollections);
   };
 
+}
+
+function countTotalPrice() {
+  let sum = 0;
+  for (let i = 0; i < cart.length; i++) {
+    sum += cart[i].countPrice();
+  }
+  return sum;
 }

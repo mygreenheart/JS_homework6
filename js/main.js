@@ -15,11 +15,18 @@ let gridDiv = document.createElement("div"),
   btnSortByPrice2 = document.createElement("input"),
   textFillter = document.createElement("input"),
   btnAddPizza = document.createElement("input"),
+  cartDiv = document.createElement("div"),
+  cartA = document.createElement("a"),
+  cartDivInside = document.createElement("div"),
+  cartDivTotal = document.createElement("div"),
+  cartBtnTotal = document.createElement("a"),
+  divSort = document.createElement("div"),
   header = document.createElement("header");
 
 document.body.appendChild(header);
 document.body.appendChild(gridDiv);
 document.body.appendChild(listDiv);
+document.body.appendChild(divSort);
 
 
 header.appendChild(showDivHeader);
@@ -30,21 +37,39 @@ showDivHeader.appendChild(btnGrid);
 showDivHeader.appendChild(btnList);
 searchDivHeader.appendChild(btnFillter);
 searchDivHeader.appendChild(textFillter);
-searchDivHeader.appendChild(pFillter);
 searchDivHeader.appendChild(btnAddPizza);
-sortDivHeader.appendChild(btnSortByPrice1);
-sortDivHeader.appendChild(btnSortByPrice2);
-sortDivHeader.appendChild(btnSortByName1);
-sortDivHeader.appendChild(btnSortByName2);
 
+cartDivInside.appendChild(cartDivTotal);
+cartDivTotal.appendChild(cartBtnTotal);
+searchDivHeader.appendChild(pFillter);
+sortDivHeader.appendChild(btnAddPizza);
+sortDivHeader.appendChild(cartDiv);
+cartDiv.appendChild(cartA)
+cartDiv.appendChild(cartDivInside);
+
+
+divSort.appendChild(btnSortByPrice1);
+divSort.appendChild(btnSortByPrice2);
+divSort.appendChild(btnSortByName1);
+divSort.appendChild(btnSortByName2);
+
+searchDivHeader.className = "searchDivHeader";
+divSort.className = "divSort";
+cartDivTotal.className = "cartTotal";
+cartBtnTotal.className = "cartButton"
 sortDivHeader.className = "sortDiv";
 gridDiv.className = "gridDiv";
 listDiv.className = "listDiv";
 header.className = "header";
+cartDiv.className = "cartDiv";
+cartDivInside.className = "cartDivInside";
+cartA.className = "cartA";
 btnGrid.type = "button";
 btnGrid.value = "Show grid";
 btnAddPizza.type = "button";
 btnAddPizza.value = "Add Pizza";
+cartA.innerText = "(" + cart.length + ")";
+cartA.href = "#"
 btnList.type = "button";
 btnList.value = "Show list";
 btnFillter.type = "button";
@@ -150,9 +175,16 @@ btnGrid.addEventListener("click", () => {
 btnList.addEventListener("click", () => {
   drawListPizza(pizzaCollections);
 });
-btnAddPizza.addEventListener("click",addNewPizza)
+btnAddPizza.addEventListener("click", addNewPizza)
 btnFillter.addEventListener("click", filterByIngredient);
 btnSortByName1.addEventListener("click", sortByName1);
 btnSortByName2.addEventListener("click", sortByName2);
 btnSortByPrice1.addEventListener("click", sortByPriceUp);
 btnSortByPrice2.addEventListener("click", sortByPriceDown);
+
+$(".cartDiv").click(function () {
+  $(".cartDivInside").slideToggle("slow");
+});
+
+
+addPizzaFromLocalStorage()
